@@ -1,0 +1,170 @@
+@startuml
+
+object STUB
+
+object CatàlegSèries
+
+object Sèrie{
+    id
+    titol
+    descripcio
+}
+
+object EstatSèrie
+object WatchedList
+object WatchNext
+object NotStartedYet
+
+object Tematica
+
+object Artista{
+    nom
+    id
+    tipus
+    idSerie
+    nacionalitat
+}
+
+object Protagonista{
+    nom serie
+}
+
+object Productora{
+    nom
+    id
+    idSerie
+}
+
+object Temporades{
+    número de temporada
+}
+object EstatTemporades
+object Vista
+object NoVista
+object EnCurs
+
+object Episodi{
+    title
+    data
+    duration
+    idioma
+    description
+    idSerie
+    numTemporada
+}
+object EstatEpisodi
+object Vist{
+    subscrit
+    vist
+}
+object NoVist
+object NoAcabat
+
+object Emocions
+object Personatge
+object Plataforma
+
+object Usuari
+object NoRegistrat
+object Registre
+
+object Client{
+    data naixement
+    nacionalitat
+    nom real
+    nom usuari
+    clau accés
+}
+
+object Login{
+    usuari
+    contrassenya
+}
+
+object Valoració{
+    id
+    client
+    idSerie
+    numTemporada
+    episodi
+    puntuacio
+    data
+}
+
+object Subscripcio{
+    id
+    client
+    serie
+    numTemporada
+    episodi
+}
+
+object Visualitzacio{
+    id
+    client
+    serie
+    numTemporada
+    episodi
+    data
+}
+
+object LlistaClients
+
+STUB "1"*--"1" CatàlegSèries: té
+CatàlegSèries "1"*--"*" Sèrie: té
+
+Sèrie "1"--"1" EstatSèrie: té
+EstatSèrie <|-- WatchedList
+EstatSèrie <|-- WatchNext
+EstatSèrie <|-- NotStartedYet
+
+Sèrie "1"--"1..*" Tematica: té
+
+Sèrie "1"--"1..*" Artista: té
+Artista <|-- Protagonista
+
+Sèrie "1"--"1" Productora: té
+
+Sèrie "1"--"*" Temporades: té
+Temporades -- EstatTemporades
+EstatTemporades <|-- Vista
+EstatTemporades <|-- NoVista
+EstatTemporades <|-- EnCurs
+
+Temporades "1"--"*" Episodi: té
+Episodi -- EstatEpisodi
+EstatEpisodi <|-- Vist
+EstatEpisodi <|-- NoVist
+EstatEpisodi <|-- NoAcabat
+
+Vist "1"--"1" Valoració: té
+Valoració "1"--"1..6" Emocions
+Valoració "1"--"1" Personatge
+Valoració "1"--"1..4" Plataforma
+
+Usuari <|-- NoRegistrat
+NoRegistrat "1"--"1" Registre: fa
+
+Usuari <|-- Client
+Client "1"--"1" Login: fa
+
+Login "1"--"1" LlistaClients: accedeix
+Registre "1"--"1" LlistaClients: accedeix
+
+STUB "1"--"*" Client: té
+
+LlistaClients "1"--"*" Client: té
+
+Client "1"--"*" Subscripcio: pot fer
+
+Client "1"--"*" Visualitzacio: pot fer
+
+Episodi "1"--"*" Subscripcio: pot tenir
+
+Episodi "1"--"*" Visualitzacio: pot tenir
+
+Client "*"--"1" CatàlegSèries: veure
+
+
+
+@enduml

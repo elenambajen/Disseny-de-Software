@@ -1,0 +1,131 @@
+@startuml
+
+object STUB
+
+object CatàlegSèries
+
+object Sèrie{
+    titol
+    descripcio
+    imatge
+    any estreno
+}
+
+object EstatSèrie
+object WatchedList
+object WatchNext
+object NotStartedYet
+
+object Tematica
+
+object Actors{
+    nom real
+    nacionalitat
+}
+object Protagonista{
+    nom serie
+}
+
+object Directors{
+    nom
+    nacionalitat
+}
+
+object Productora{
+    nom
+    any creació
+    identificador
+}
+
+object Temporades{
+    número de temporada
+}
+object EstatTemporades
+object Vista
+object NoVista
+object EnCurs
+
+object Episodi{
+    nom
+    data primera emisió
+    hora primera emisió
+    duració
+    idioma original
+    descripció
+    enllaç per veure'l
+}
+object EstatEpisodi
+object Vist{
+    subscrit
+    vist
+}
+object NoVist
+object NoAcabat
+
+object Valoració
+object Emocions
+object Personatge
+object Plataforma
+
+object Usuari
+object NoRegistrat
+object Registre
+
+object Client{
+    data naixement
+    nacionalitat
+    nom real
+    nom usuari
+    clau accés
+}
+
+object Login
+
+
+STUB "1"*--"1" CatàlegSèries: té
+CatàlegSèries "1"*--"*" Sèrie: té
+
+Sèrie "1"--"1" EstatSèrie: té
+EstatSèrie <|-- WatchedList
+EstatSèrie <|-- WatchNext
+EstatSèrie <|-- NotStartedYet
+
+Sèrie "1"--"1..*" Tematica: té
+
+Sèrie "1"--"1..*" Actors: té
+Actors <|-- Protagonista
+
+Sèrie "1"--"1..*" Directors: té
+
+Sèrie "1"--"1" Productora: té
+
+Sèrie "1"--"*" Temporades: té
+Temporades -- EstatTemporades
+EstatTemporades <|-- Vista
+EstatTemporades <|-- NoVista
+EstatTemporades <|-- EnCurs
+
+Temporades "1"--"*" Episodi: té
+Episodi -- EstatEpisodi
+EstatEpisodi <|-- Vist
+EstatEpisodi <|-- NoVist
+EstatEpisodi <|-- NoAcabat
+
+Vist "1"--"1" Valoració: té
+Valoració "1"--"1..6" Emocions
+Valoració "1"--"1" Personatge
+Valoració "1"--"1..4" Plataforma
+
+Usuari <|-- NoRegistrat
+NoRegistrat "1"--"1" Registre: fa
+
+Usuari <|-- Client
+Client "1"--"1" Login: fa
+
+STUB "1"--"*" Client: té
+
+Client "1"--"*" Episodi: subscriure's, veure'l
+
+Client "*"--"1" CatàlegSèries: veure
+
+@enduml
